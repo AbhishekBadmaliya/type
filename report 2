@@ -1,0 +1,104 @@
+// MonthlyShiftAnalysisPdf.tsx
+import React from 'react';
+import {
+  Document,
+  Page,
+  Text,
+  View,
+  StyleSheet,
+} from '@react-pdf/renderer';
+
+const styles = StyleSheet.create({
+  page: {
+    padding: 15,
+    fontSize: 8,
+    fontFamily: 'Helvetica',
+  },
+  header: {
+    textAlign: 'center',
+    marginBottom: 10,
+  },
+  row: {
+    flexDirection: 'row',
+  },
+  table: {
+    display: 'table',
+    width: 'auto',
+    marginVertical: 5,
+    borderStyle: 'solid',
+    borderWidth: 1,
+    borderRightWidth: 0,
+    borderBottomWidth: 0,
+  },
+  cell: {
+    borderRightWidth: 1,
+    borderBottomWidth: 1,
+    padding: 2,
+    flex: 1,
+    textAlign: 'center',
+  },
+  smallCell: {
+    flex: 0.5,
+    textAlign: 'center',
+    borderRightWidth: 1,
+    borderBottomWidth: 1,
+    padding: 2,
+  },
+  footer: {
+    marginTop: 10,
+  },
+});
+
+const headers = [
+  'S. No.', 'FSP CODE', 'AREA', 'UNIT NO.', 'TARGET', 'PROGRESS', 'SHIFT', 'AVS', 'P', 'NPP',
+  'BS', 'AS', 'GL', 'DT', 'FISH', 'CX', 'RE', 'RD', 'TD', 'FC', 'AD', 'ADP', 'NON-T', 'NON-M', 'WASF', 'OT', 'WAIT'
+];
+
+const MonthlyShiftAnalysisPdf = () => (
+  <Document>
+    <Page size="A4" style={styles.page}>
+      <View style={styles.header}>
+        <Text>GEOLOGICAL SURVEY OF INDIA</Text>
+        <Text>ENGINEERING DIVISION</Text>
+        <Text>Monthly shift analysis of drilling Units</Text>
+        <Text>FSP Year : 2017-2018</Text>
+        <Text>MONTH : May</Text>
+        <Text>REGION : SOUTHERN REGION</Text>
+      </View>
+
+      <View style={styles.table}>
+        <View style={styles.row}>
+          {headers.map((header, idx) => (
+            <Text key={idx} style={header.length > 10 ? styles.cell : styles.smallCell}>
+              {header}
+            </Text>
+          ))}
+        </View>
+
+        {/* Static example row — replace this with dynamic data later */}
+        <View style={styles.row}>
+          {Array(headers.length).fill(0).map((val, idx) => (
+            <Text key={idx} style={headers[idx].length > 10 ? styles.cell : styles.smallCell}>
+              {val}
+            </Text>
+          ))}
+        </View>
+      </View>
+
+      <View style={styles.footer}>
+        <Text style={{ fontSize: 7 }}>
+          AVS/OS - Available shift/Operative shift, P - productive shift, NPP - Non-productive shift,
+          BS - Borehole Shifting, AS - Area Shifting, GL - Geophysical Logging, DT - Deviation Test,
+          FISH - Fishing, CX - Casing Extraction, RE - Reaming, RD - Redrilling, TD - Total Down,
+          FC - Forest Clearance, AD - Awaiting Deployment, NON-T - Non-availability of Trained personnel,
+          NON-M - Non availability of material, WASF - Washing, OT - Others, WAIT - Waiting
+        </Text>
+        <Text style={{ fontSize: 7, marginTop: 4 }}>
+          ** This is a computer-generated document. No signature is required. Print only if necessary. **
+        </Text>
+      </View>
+    </Page>
+  </Document>
+);
+
+export default MonthlyShiftAnalysisPdf;
